@@ -136,8 +136,8 @@ class ModAds:
             y_hat_list = self.Y_hat.tolist()
 
             return {
-                'LABELED': {self.node_indices[i]: y_hat_list[i] for i in range(self.unlabeled_index)},
-                'UNLABELED': {self.node_indices[i]: y_hat_list[i] for i in range(self.unlabeled_index, self.node_len)}
+                'LABELED': {self.node_indices[i]: y_hat_list[i][:-1] for i in range(self.unlabeled_index)},
+                'UNLABELED': {self.node_indices[i]: y_hat_list[i][:-1] for i in range(self.unlabeled_index, self.node_len)}
             }
 
 
