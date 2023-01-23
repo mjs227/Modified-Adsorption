@@ -127,7 +127,7 @@ class ModAds:
 
         return out_w
 
-    def run_modads(self, epsilon=1e-3):
+    def run_modads(self, epsilon=1e-3, return_abdn=False):
         with torch.no_grad():
             delta = epsilon + 1
             prev_y_hat = torch.clone(self.Y_hat)
@@ -142,10 +142,11 @@ class ModAds:
                 prev_y_hat = torch.clone(self.Y_hat)
 
         y_hat_list = self.Y_hat.tolist()
+        r_fn = (lambda z: z) if return_abdn else (lambda z: z[:-1])
 
         return {
-            'LABELED': {self.node_indices[i]: y_hat_list[i][:-1] for i in range(self.unlabeled_index)},
-            'UNLABELED': {self.node_indices[i]: y_hat_list[i][:-1] for i in range(self.unlabeled_index, self.node_len)}
+            'LABELED': {self.node_indices[i]: r_fn(y_hat_list[i]) for i in range(self.unlabeled_index)},
+            'UNLABELED': {self.node_indices[i]: r_fn(y_hat_list[i]) for i in range(self.unlabeled_index, self.node_len)}
         }
 
 
