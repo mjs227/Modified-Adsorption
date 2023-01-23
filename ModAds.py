@@ -129,7 +129,7 @@ class ModAds:
 
     def run_modads(self, epsilon=1e-3):
         with torch.no_grad():
-            delta = epsilon + 10000000
+            delta = epsilon + 1
             prev_y_hat = torch.clone(self.Y_hat)
 
             while delta > epsilon:
