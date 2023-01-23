@@ -93,21 +93,21 @@ class ModAds:
         else:
             assert self.node_len <= nn['k']
 
-            k_range = range(nn['k'] if 'k' in nn.keys() else min(5, self.node_len))
             bin_vals = nn['bin'] if 'bin' in nn.keys() else False
             out_w = torch.zeros((self.node_len, self.node_len), dtype=torch.float32)
 
             for i in range(self.node_len):
                 w_i = temp_w[i]
+                w_i_i = w_i[i]
                 w_i[i] = 0
 
-                for _ in k_range:
+                for _ in range(nn['k']):
                     argmax = torch.argmax(w_i).item()
                     argmax_val = w_i[argmax]
                     out_w[i, argmax] = argmax_val
                     w_i[argmax] = 0
 
-                out_w[i, i] = 1
+                out_w[i, i] = w_i[i]
 
             if bin_vals:
                 out_w.apply_(lambda x: 1 if x > 0 else 0)
