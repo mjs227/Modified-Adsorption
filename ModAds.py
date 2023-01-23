@@ -58,7 +58,7 @@ class ModAds:
             for i in range(self.node_len):
                 h_v = torch.dot(self.W[i], torch.log(self.W[i])) * -1
                 c_v = (torch.log(beta) / torch.log(beta + torch.exp(h_v))).item()
-                d_v = (1 - c_v) * (h_v.item() ** 0.5)
+                d_v = (1 - c_v) * torch.sqrt(h_v).item()
                 z_v = max(c_v + d_v, 1)
                 p_cont[i], p_inj[i] = c_v / z_v, d_v / z_v
                 p_abdn[i] = 1 - (p_cont[i] + p_inj[i])
