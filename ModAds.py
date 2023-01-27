@@ -97,16 +97,12 @@ class ModAds:
 
             for i in range(self.node_len):
                 w_i = temp_w[i]
-                w_i_i = w_i[i]
-                w_i[i] = 0
 
                 for _ in range(nn['k']):
                     argmax = torch.argmax(w_i).item()
                     argmax_val = w_i[argmax]
                     out_w[i, argmax] = argmax_val
                     w_i[argmax] = 0
-
-                out_w[i, i] = w_i_i
 
             if bin_vals:
                 out_w.apply_(lambda x: 1 if x > 0 else 0)
