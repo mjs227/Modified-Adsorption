@@ -20,8 +20,7 @@ class ModAds:
         self.node_len = len(self.node_indices)
         
         node_labels = [labeled_node_dict[self.node_indices[i]] + [0] for i in range(self.unlabeled_index)]
-        label_range = range(len(node_labels[0]))
-        node_labels += [[0 for _ in label_range] for _ in range(self.unlabeled_index, self.node_len)]
+        node_labels += [[0 for _ in range(len(node_labels[0]))] for _ in range(self.unlabeled_index, self.node_len)]
         node_index_dict = {self.node_indices[i]: i for i in range(self.node_len)}
 
         assert set(kwargs.keys()) <= set(kw_dict.keys())
