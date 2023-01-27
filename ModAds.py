@@ -106,7 +106,7 @@ class ModAds:
                     out_w[i, argmax] = argmax_val
                     w_i[argmax] = 0
 
-                out_w[i, i] = w_i[i]
+                out_w[i, i] = w_i_i
 
             if bin_vals:
                 out_w.apply_(lambda x: 1 if x > 0 else 0)
